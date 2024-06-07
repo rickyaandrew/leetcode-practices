@@ -43,13 +43,12 @@ class Trie {
 
     void add(String word) {
         Node curr = root;
-        for (int i = 0; i < word.length(); i++) {
-            char c = word.charAt(i);
-            int index = c - 'a';
-            if (curr.arr[index] != null) {
+        for (char currChar : word.toCharArray()) {
+            int index = currChar - 'a';
+            if (curr.arr[index] == null) {
+                curr.arr[index] = new Node();
                 curr = curr.arr[index];
             } else {
-                curr.arr[index] = new Node();
                 curr = curr.arr[index];
             }
         }
@@ -58,21 +57,18 @@ class Trie {
 
     String getRoot(String word) {
         Node curr = root;
-        int i = -1;
-        for (i = 0; i < word.length(); i++) {
-
-            if (curr.isWord == true) {
-                break;
+        for (int i = 0; i < word.length(); i++) {
+            if (curr.isWord) {
+                return word.substring(0, i);
             }
-            char c = word.charAt(i);
-            int index = c - 'a';
-
-            if (curr.arr[index] != null) {
-                curr = curr.arr[index];
-            } else {
+            char currChar = word.charAt(i);
+            if (curr.arr[currChar - 'a'] == null) {
                 return "";
+            } else {
+                curr = curr.arr[currChar - 'a'];
             }
+
         }
-        return word.substring(0, i);
+        return word;
     }
 }
