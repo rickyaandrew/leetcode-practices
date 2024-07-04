@@ -18,4 +18,23 @@ public class MergeNodesinBetweenZeros {
         }
         return result.next;
     }
+
+    public ListNode solution2(ListNode head) {
+        ListNode headPointer = head.next;
+        while (headPointer.next != null) {
+            int nextVal = headPointer.next.val;
+            if (nextVal == 0) {
+                headPointer.next = headPointer.next.next;
+                if (headPointer.next != null) {
+                    headPointer = headPointer.next;
+                }
+            } else {
+                headPointer.val += nextVal;
+                headPointer.next = headPointer.next.next;
+            }
+
+        }
+        return head.next;
+    }
+
 }
